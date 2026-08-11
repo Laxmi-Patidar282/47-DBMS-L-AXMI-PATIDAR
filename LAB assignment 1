@@ -1,0 +1,46 @@
+mysql> create database laxmidbms;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use laxmidbms;
+Database changed
+mysql> create table countries(country_id varchar(2),country_name varchar(30),region_id int,primary key(country_id) );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> show tables;
++---------------------+
+| Tables_in_laxmidbms |
++---------------------+
+| countries           |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> desc countries;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| country_id   | varchar(2)  | NO   | PRI | NULL    |       |
+| country_name | varchar(30) | YES  |     | NULL    |       |
+| region_id    | int         | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> insert into countries(country_id,country_name,region_id)values(In,'INDIA',91);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'In,'INDIA',91)' at line 1
+mysql> insert into countries(country_id,country_name,region_id)values('IN','INDIA',91);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into countries(country_id,country_name,region_id)values('US','UNITED STATES',87);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into countries(country_id,country_name,region_id)values('CH','CHINA',45);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from countries;
++------------+---------------+-----------+
+| country_id | country_name  | region_id |
++------------+---------------+-----------+
+| CH         | CHINA         |        45 |
+| IN         | INDIA         |        91 |
+| US         | UNITED STATES |        87 |
++------------+---------------+-----------+
+3 rows in set (0.00 sec)
