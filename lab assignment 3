@@ -1,0 +1,37 @@
+
+mysql> use laxmidbms;
+Database changed
+mysql> create table dup_countries LIKE countries;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc dup_countries;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| country_id   | varchar(2)  | NO   | PRI | NULL    |       |
+| country_name | varchar(30) | YES  |     | NULL    |       |
+| region_id    | int         | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> insert into dup_countries(country_id,country_name,region_id)values('IN','INDIA',91);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into dup_countries(country_id,country_name,region_id)values('US','UNITED STATES',84);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into dup_countries(country_id,country_name,region-id)values('CH','CHINA',45);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-id)values('CH','CHINA',45)' at line 1
+mysql> insert into dup_countries(country_id,country_name,region_id)values('CH','CHINA',45);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from countries;
++------------+---------------+-----------+
+| country_id | country_name  | region_id |
++------------+---------------+-----------+
+| CH         | CHINA         |        45 |
+| IN         | INDIA         |        91 |
+| US         | UNITED STATES |        87 |
++------------+---------------+-----------+
+3 rows in set (0.00 sec)
+
