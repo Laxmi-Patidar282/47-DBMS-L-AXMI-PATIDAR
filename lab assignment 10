@@ -1,0 +1,39 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| aboutcountrydbms   |
+| aboutjobdbms       |
+| countrydbms        |
+| information_schema |
+| jobdbms            |
+| jobhistorydbms     |
+| laxmidbms          |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+10 rows in set (0.00 sec)
+
+mysql> create database jobsdbms;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use jobsdbms;
+Database changed
+mysql> create table jobs(
+    -> job_id INT,
+    -> job_title VARCHAR(30) default '',
+    -> min_salary DECIMAL(10,2) default 8000,
+    -> max_salary DECIMAL(10,2) default NULL
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> INSERT INTO jobs (job_id) VALUES (101);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from jobs;
++--------+-----------+------------+------------+
+| job_id | job_title | min_salary | max_salary |
++--------+-----------+------------+------------+
+|    101 |           |    8000.00 |       NULL |
++--------+-----------+------------+------------+
