@@ -1,0 +1,54 @@
+mysql> use persons;
+Database changed
+mysql> create table emloyees(
+    -> employee_id int,
+    -> first_name varchar(30),
+    -> last_name varchar(30),
+    -> salary decimal(8,2)
+    -> );
+Query OK, 0 rows affected (0.09 sec)
+mysql> INSERT into emloyees VALUES(1,'Priya','Sharma',6000),
+    -> (2,'John','Bull',5000),
+    -> (3,'Rakesh','Goyal',7000),
+    -> (104,'Rita','Dey',19000),
+    -> (205,'Meet','Kumar',23000);
+Query OK, 5 rows affected (0.04 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from emloyees;
++-------------+------------+-----------+----------+
+| employee_id | first_name | last_name | salary   |
++-------------+------------+-----------+----------+
+|           1 | Priya      | Sharma    |  6000.00 |
+|           2 | John       | Bull      |  5000.00 |
+|           3 | Rakesh     | Goyal     |  7000.00 |
+|         104 | Rita       | Dey       | 19000.00 |
+|         205 | Meet       | Kumar     | 23000.00 |
++-------------+------------+-----------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select salary
+    -> FROM emloyees
+    -> WHERE last_name='Bull';
++---------+
+| salary  |
++---------+
+| 5000.00 |
++---------+
+1 row in set (0.01 sec)
+mysql> select first_name,last_name,salary
+    -> FROM emloyees
+    -> WHERE salary>(
+    -> SELECT salary
+    -> FROM emloyees
+    -> WHERE last_name='Bull'
+    -> );
++------------+-----------+----------+
+| first_name | last_name | salary   |
++------------+-----------+----------+
+| Priya      | Sharma    |  6000.00 |
+| Rakesh     | Goyal     |  7000.00 |
+| Rita       | Dey       | 19000.00 |
+| Meet       | Kumar     | 23000.00 |
++------------+-----------+----------+
+4 rows in set (0.01 sec)
