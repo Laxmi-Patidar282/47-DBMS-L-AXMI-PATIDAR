@@ -1,0 +1,42 @@
+CREATE TABLE employees (
+    ->     employee_id INT PRIMARY KEY,
+    ->     first_name VARCHAR(20),
+    ->     last_name VARCHAR(25),
+    ->     salary DECIMAL(10,2)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> INSERT INTO employees VALUES
+    -> (101, 'Rahul', 'Sharma', 25000),
+    -> (102, 'Priya', 'Verma', 40000),
+    -> (103, 'Amit', 'Patel', 30000),
+    -> (104, 'Neha', 'Gupta', 50000),
+    -> (105, 'Rohan', 'Mehta', 20000);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * from employees;
++-------------+------------+-----------+----------+
+| employee_id | first_name | last_name | salary   |
++-------------+------------+-----------+----------+
+|         101 | Rahul      | Sharma    | 25000.00 |
+|         102 | Priya      | Verma     | 40000.00 |
+|         103 | Amit       | Patel     | 30000.00 |
+|         104 | Neha       | Gupta     | 50000.00 |
+|         105 | Rohan      | Mehta     | 20000.00 |
++-------------+------------+-----------+----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT first_name, last_name, salary
+    -> FROM employees
+    -> WHERE salary > (
+    ->     SELECT AVG(salary)
+    ->     FROM employees
+    -> );
++------------+-----------+----------+
+| first_name | last_name | salary   |
++------------+-----------+----------+
+| Priya      | Verma     | 40000.00 |
+| Neha       | Gupta     | 50000.00 |
++------------+-----------+----------+
+2 rows in set (0.01 sec)
