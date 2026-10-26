@@ -1,0 +1,52 @@
+CREATE TABLE departments (
+    ->     department_id INT PRIMARY KEY,
+    ->     department_name VARCHAR(30)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> INSERT INTO departments VALUES
+    -> (10, 'IT'),
+    -> (20, 'Marketing'),
+    -> (30, 'IT Support'),
+    -> (40, 'Finance');
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> CREATE TABLE employees (
+    ->     employee_id INT PRIMARY KEY,
+    ->     first_name VARCHAR(20),
+    ->     last_name VARCHAR(25),
+    ->     salary DECIMAL(10,2),
+    ->     department_id INT,
+    ->     FOREIGN KEY (department_id)
+    ->         REFERENCES departments(department_id)
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> INSERT INTO employees VALUES
+    -> (101, 'Rahul', 'Sharma', 50000, 10),
+    -> (102, 'Priya', 'Verma', 30000, 20),
+    -> (103, 'Amit', 'Patel', 60000, 10),
+    -> (104, 'Neha', 'Gupta', 40000, 30),
+    -> (105, 'Rohan', 'Mehta', 20000, 40);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> SELECT first_name, last_name, salary
+    -> FROM employees
+    -> WHERE salary > (
+    ->     SELECT AVG(salary)
+    ->     FROM employees
+    -> )
+    -> AND department_id IN (
+    ->     SELECT department_id
+    ->     FROM departments
+    ->     WHERE department_name LIKE '%IT%'
+    -> );
++------------+-----------+----------+
+| first_name | last_name | salary   |
++------------+-----------+----------+
+| Rahul      | Sharma    | 50000.00 |
+| Amit       | Patel     | 60000.00 |
++------------+-----------+----------+
+2 rows in set (0.01 sec)
