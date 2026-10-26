@@ -1,0 +1,32 @@
+mysql> CREATE TABLE employees (
+    ->     employee_id INT PRIMARY KEY,
+    ->     first_name VARCHAR(20),
+    ->     last_name VARCHAR(25),
+    ->     salary DECIMAL(10,2)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> INSERT INTO employees VALUES
+    -> (101, 'John', 'Bell', 30000),
+    -> (102, 'Rahul', 'Sharma', 45000),
+    -> (103, 'Priya', 'Verma', 25000),
+    -> (104, 'Amit', 'Patel', 50000),
+    -> (105, 'Neha', 'Gupta', 35000);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> SELECT first_name, last_name, salary
+    -> FROM employees
+    -> WHERE salary > (
+    ->     SELECT salary
+    ->     FROM employees
+    ->     WHERE last_name = 'Bell'
+    -> );
++------------+-----------+----------+
+| first_name | last_name | salary   |
++------------+-----------+----------+
+| Rahul      | Sharma    | 45000.00 |
+| Amit       | Patel     | 50000.00 |
+| Neha       | Gupta     | 35000.00 |
++------------+-----------+----------+
+3 rows in set (0.00 sec)
