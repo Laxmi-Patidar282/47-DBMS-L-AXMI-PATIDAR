@@ -1,0 +1,72 @@
+
+mysql> CREATE TABLE locations (
+    ->     location_id INT PRIMARY KEY,
+    ->     city VARCHAR(30),
+    ->     country_id CHAR(2)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> INSERT INTO locations VALUES
+    -> (1000, 'New York', 'US'),
+    -> (1100, 'Chicago', 'US'),
+    -> (1200, 'London', 'UK'),
+    -> (1300, 'Toronto', 'CA');
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+mysql> CREATE TABLE department(
+    -> department_id INT PRIMARY KEY,
+    -> department_name VARCHAR(30),
+    -> location_id INT,
+    -> FOREIGN KEY (location_id)
+    -> REFERENCES locations(location_id)
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+mysql> INSERT INTO department VALUES
+    -> (10, 'Administration', 1000),
+    -> (20, 'Marketing', 1200),
+    -> (30, 'IT', 1100),
+    -> (40, 'Finance', 1300);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+
+mysql> CREATE TABLE employee (
+    ->     employee_id INT PRIMARY KEY,
+    ->     first_name VARCHAR(30),
+    ->     last_name VARCHAR(30),
+    ->     manager_id INT,
+    ->     department_id INT,
+    ->     FOREIGN KEY (department_id)
+    ->         REFERENCES department(department_id)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> INSERT INTO employee VALUES
+    -> (101, 'Rahul', 'Sharma', NULL, 10),
+    -> (102, 'Priya', 'Verma', 101, 10),
+    -> (103, 'Amit', 'Patel', 101, 30),
+    -> (104, 'Neha', 'Gupta', 102, 20),
+    -> (105, 'Anjali', 'Singh', 103, 30),
+    -> (106, 'Rohan',   'Mehta',104,40);
+Query OK, 6 rows affected (0.01 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+mysql> SELECT first_name, last_name
+    -> FROM employee
+    -> WHERE  manager_id IS NOT NULL
+    -> AND department_id IN(
+    -> SELECT department_id
+    -> FROM department
+    -> WHERE location_id IN(
+    -> SELECT location_id
+    -> FROM locations
+    -> WHERE country_id = 'US'
+    -> )
+    -> );
++------------+-----------+
+| first_name | last_name |
++------------+-----------+
+| Priya      | Verma     |
+| Amit       | Patel     |
+| Anjali     | Singh     |
++------------+-----------+
+3 rows in set (0.01 sec)
