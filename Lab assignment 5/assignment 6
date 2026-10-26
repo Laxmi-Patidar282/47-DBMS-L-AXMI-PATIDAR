@@ -1,0 +1,46 @@
+mysql> CREATE TABLE jobs (
+    ->     job_id VARCHAR(10) PRIMARY KEY,
+    ->     job_title VARCHAR(35),
+    ->     min_salary DECIMAL(10,2),
+    ->     max_salary DECIMAL(10,2)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> INSERT INTO jobs VALUES
+    -> ('IT_PROG', 'Programmer', 20000, 50000),
+    -> ('SA_REP', 'Sales Representative', 15000, 40000),
+    -> ('HR_REP', 'HR Representative', 18000, 35000);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> CREATE TABLE employees (
+    ->     employee_id INT PRIMARY KEY,
+    ->     first_name VARCHAR(20),
+    ->     last_name VARCHAR(25),
+    ->     salary DECIMAL(10,2),
+    ->     job_id VARCHAR(10),
+    ->     FOREIGN KEY (job_id) REFERENCES jobs(job_id)
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> INSERT INTO employees VALUES
+    -> (101, 'Rahul', 'Sharma', 20000, 'IT_PROG'),
+    -> (102, 'Priya', 'Verma', 30000, 'IT_PROG'),
+    -> (103, 'Amit', 'Patel', 15000, 'SA_REP'),
+    -> (104, 'Neha', 'Gupta', 25000, 'SA_REP'),
+    -> (105, 'Rohan', 'Mehta', 18000, 'HR_REP');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> SELECT first_name, last_name, salary
+    -> FROM employees e
+    -> JOIN jobs j ON e.job_id = j.job_id
+    -> WHERE e.salary = j.min_salary;
++------------+-----------+----------+
+| first_name | last_name | salary   |
++------------+-----------+----------+
+| Rohan      | Mehta     | 18000.00 |
+| Rahul      | Sharma    | 20000.00 |
+| Amit       | Patel     | 15000.00 |
++------------+-----------+----------+
+3 rows in set (0.01 sec)
