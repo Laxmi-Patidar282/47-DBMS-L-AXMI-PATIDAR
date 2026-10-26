@@ -1,0 +1,31 @@
+mysql> CREATE TABLE employees (
+    ->     employee_id INT PRIMARY KEY,
+    ->     first_name VARCHAR(20),
+    ->     last_name VARCHAR(25),
+    ->     department_id INT
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> INSERT INTO employees VALUES
+    -> (101, 'Rahul', 'Sharma', 30),
+    -> (102, 'Priya', 'Verma', 100),
+    -> (103, 'Amit', 'Patel', 20),
+    -> (104, 'Neha', 'Gupta', 30),
+    -> (105, 'Rohan', 'Mehta', 100),
+    -> (106, 'Anjali', 'Singh', 50);
+Query OK, 6 rows affected (0.01 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> SELECT first_name, last_name, department_id
+    -> FROM employees
+    -> WHERE department_id IN (30, 100)
+    -> ORDER BY department_id ASC;
++------------+-----------+---------------+
+| first_name | last_name | department_id |
++------------+-----------+---------------+
+| Rahul      | Sharma    |            30 |
+| Neha       | Gupta     |            30 |
+| Priya      | Verma     |           100 |
+| Rohan      | Mehta     |           100 |
++------------+-----------+---------------+
+4 rows in set (0.01 sec)
