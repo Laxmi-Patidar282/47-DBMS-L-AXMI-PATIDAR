@@ -1,0 +1,46 @@
+ CREATE TABLE employees (
+    ->     employee_id INT PRIMARY KEY,
+    ->     first_name VARCHAR(30),
+    ->     last_name VARCHAR(30),
+    ->     manager_id INT
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> INSERT INTO employees VALUES
+    -> (101, 'Rahul', 'Sharma', NULL),
+    -> (102, 'Priya', 'Verma', 101),
+    -> (103, 'Amit', 'Patel', 101),
+    -> (104, 'Neha', 'Gupta', 102),
+    -> (105, 'Rohan', 'Mehta', 102),
+    -> (106, 'Anjali', 'Singh', 103);
+Query OK, 6 rows affected (0.01 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM employees;
++-------------+------------+-----------+------------+
+| employee_id | first_name | last_name | manager_id |
++-------------+------------+-----------+------------+
+|         101 | Rahul      | Sharma    |       NULL |
+|         102 | Priya      | Verma     |        101 |
+|         103 | Amit       | Patel     |        101 |
+|         104 | Neha       | Gupta     |        102 |
+|         105 | Rohan      | Mehta     |        102 |
+|         106 | Anjali     | Singh     |        103 |
++-------------+------------+-----------+------------+
+6 rows in set (0.01 sec)
+
+mysql> SELECT first_name, last_name
+    -> FROM employees
+    -> WHERE employee_id IN (
+    ->     SELECT manager_id
+    ->     FROM employees
+    ->     WHERE manager_id IS NOT NULL
+    -> );
++------------+-----------+
+| first_name | last_name |
++------------+-----------+
+| Rahul      | Sharma    |
+| Priya      | Verma     |
+| Amit       | Patel     |
++------------+-----------+
+3 rows in set (0.02 sec)
