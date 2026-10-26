@@ -1,0 +1,28 @@
+mysql> CREATE TABLE employees (
+    ->     employee_id INT PRIMARY KEY,
+    ->     first_name VARCHAR(20),
+    ->     last_name VARCHAR(25),
+    ->     hire_date DATE
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> INSERT INTO employees VALUES
+    -> (101, 'Steven', 'King', '1987-06-17'),
+    -> (102, 'Neena', 'Kochhar', '1989-09-21'),
+    -> (103, 'Lex', 'De Haan', '1987-01-13'),
+    -> (104, 'John', 'Smith', '1990-03-15'),
+    -> (105, 'David', 'Austin', '1987-12-05');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> SELECT first_name, last_name, hire_date
+    -> FROM employees
+    -> WHERE YEAR(hire_date) = 1987;
++------------+-----------+------------+
+| first_name | last_name | hire_date  |
++------------+-----------+------------+
+| Steven     | King      | 1987-06-17 |
+| Lex        | De Haan   | 1987-01-13 |
+| David      | Austin    | 1987-12-05 |
++------------+-----------+------------+
+3 rows in set (0.01 sec)
