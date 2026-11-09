@@ -1,0 +1,37 @@
+mysql> CREATE TABLE employees (
+    ->     employee_id INT PRIMARY KEY,
+    ->     first_name VARCHAR(20),
+    ->     last_name VARCHAR(25),
+    ->     job VARCHAR(30),
+    ->     salary DECIMAL(10,2)
+    -> );
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> INSERT INTO employees VALUES
+    -> (1, 'Rahul', 'Sharma', 'Manager', 50000),
+    -> (2, 'Amit', 'Verma', 'Developer', 35000),
+    -> (3, 'Priya', 'Patel', 'Developer', 40000),
+    -> (4, 'Neha', 'Jain', 'Analyst', 30000),
+    -> (5, 'Rohit', 'Gupta', 'Manager', 55000);
+Query OK, 5 rows affected (0.02 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * from employees;
++-------------+------------+-----------+-----------+----------+
+| employee_id | first_name | last_name | job       | salary   |
++-------------+------------+-----------+-----------+----------+
+|           1 | Rahul      | Sharma    | Manager   | 50000.00 |
+|           2 | Amit       | Verma     | Developer | 35000.00 |
+|           3 | Priya      | Patel     | Developer | 40000.00 |
+|           4 | Neha       | Jain      | Analyst   | 30000.00 |
+|           5 | Rohit      | Gupta     | Manager   | 55000.00 |
++-------------+------------+-----------+-----------+----------+
+5 rows in set (0.00 sec)
+mysql> SELECT MAX(salary) - MIN(salary) AS Salary_Difference
+    -> FROM employees;
++-------------------+
+| Salary_Difference |
++-------------------+
+|          25000.00 |
++-------------------+
+1 row in set (0.00 sec)
